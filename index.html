@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Data Science on Amazon Web Services</title>
+    <meta name="description" content="Data Science on AWS">
+    <meta name="keywords" content="Data Science, AWS, Amazon Web Services, SageMaker, TensorFlow, PyTorch, Kubeflow, Athena, Step Functions, Redshift, DynamoDB, QuickSight, Glue, EMR">
+    <meta name="title" content="Data Science on AWS">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/sagemaker-logo-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/sagemaker-logo-32x32.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/Features-Minimal-icons.css">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ECMNXM9Q6Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ECMNXM9Q6Y');
+</script>
+
+<!-- Github Buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- Full Story -->
+<script>
+window['_fs_debug'] = false;
+window['_fs_host'] = 'fullstory.com';
+window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
+window['_fs_org'] = 'NWGC4';
+window['_fs_namespace'] = 'FS';
+(function(m,n,e,t,l,o,g,y){
+    if (e in m) {if(m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');} return;}
+    g=m[e]=function(a,b,s){g.q?g.q.push([a,b,s]):g._api(a,b,s);};g.q=[];
+    o=n.createElement(t);o.async=1;o.crossOrigin='anonymous';o.src='https://'+_fs_script;
+    y=n.getElementsByTagName(t)[0];y.parentNode.insertBefore(o,y);
+    g.identify=function(i,v,s){g(l,{uid:i},s);if(v)g(l,v,s)};g.setUserVars=function(v,s){g(l,v,s)};g.event=function(i,v,s){g('event',{n:i,p:v},s)};
+    g.anonymize=function(){g.identify(!!0)};
+    g.shutdown=function(){g("rec",!1)};g.restart=function(){g("rec",!0)};
+    g.log = function(a,b){g("log",[a,b])};
+    g.consent=function(a){g("consent",!arguments.length||a)};
+    g.identifyAccount=function(i,v){o='account';v=v||{};v.acctId=i;g(o,v)};
+    g.clearUserCookie=function(){};
+    g._w={};y='XMLHttpRequest';g._w[y]=m[y];y='fetch';g._w[y]=m[y];
+    if(m[y])m[y]=function(){return g._w[y].apply(this,arguments)};
+    g._v="1.2.0";
+})(window,document,window['_fs_namespace'],'script','user');
+</script>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark navbar-custom">
+        <div class="container"><a class="navbar-brand" href="/">Generative ai on AWS</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarResponsive"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="https://www.amazon.com/dp/1492079391/" target="_blank">Book</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://www.eventbrite.com/e/full-day-workshop-kubeflow-gpu-kerastensorflow-20-tf-extended-tfx-kubernetes-pytorch-xgboost-tickets-63362929227" target="_blank">WorkshopS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://meetup.datascienceonaws.com" target="_blank">MEETUPS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://github.com/generative-ai-on-aws/" target="_blank">CODE</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://youtube.datascienceonaws.com" target="_parent">VIDEOS</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead text-center text-white" style="padding: 150px 0px 0px 0px;">
+        <div class="masthead-content">
+            <div class="container">
+                <h1 class="masthead-heading mb-0">Generative AI on AWS</h1>
+                <h2 class="masthead-subheading mb-0">O'Reilly Book Pre-Sale!</h2>
+                <p class="text-center text-white py-5" style="padding: 0px 0px;"><a href="https://www.amazon.com/dp/1492079391/" target="_blank"><img class="img-fluid shadow-lg" src="generative_ai_on_aws_book_full_color_sm.png" style="height: 800px;" height="400"><div>
+    <a class="github-button" href="https://github.com/data-science-on-aws/workshop" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star data-science-on-aws/workshop on GitHub">Star</a>    
+</div></a>
+                <h2 class="masthead-subheading mb-0"><a href="https://www.amazon.com/dp/1492079391/" target="_blank"></a><a class="btn btn-primary text-center shadow-lg btn-xl rounded-pill mt-5" role="button" href="https://www.amazon.com/dp/1492079391/" target="_blank" style="margin: 24px;padding: 24px, 48px;">BOOK</a><a class="btn btn-primary text-center shadow-lg btn-xl rounded-pill mt-5" role="button" href="https://www.eventbrite.com/e/full-day-workshop-kubeflow-bert-gpu-tensorflow-keras-sagemaker-tickets-63362929227" target="_blank" style="margin: 24px;padding: 24px, 48px;">Workshops</a><a class="btn btn-primary text-center shadow-lg btn-xl rounded-pill mt-5" role="button" href="https://meetup.datascienceonaws.com" target="_blank" style="margin: 24px;padding: 24px, 48px;">MEETUPS</a><a class="btn btn-primary text-center shadow-lg btn-xl rounded-pill mt-5" role="button" href="https://github.com/data-science-on-aws/" target="_blank" style="margin: 24px;padding: 24px, 48px;">CODE<br></a><a class="btn btn-primary text-center shadow-lg btn-xl rounded-pill mt-5" role="button" href="https://youtube.datascienceonaws.com" target="_parent" style="margin: 24px;padding: 24px, 48px;">VIDEOS</a></h2>
+                </p>
+                <p class="text-center text-white py-5" style="padding: 0px 0px;margin: -70px 0px -18px 0px;"><!-- Begin Mailchimp Signup Form -->
+<div id="mc_embed_signup">
+<form action="https://github.us4.list-manage.com/subscribe/post?u=0c529d39d4cbdf8bb98f68b5a&amp;id=9c4d374418" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+        <center>
+        <div class="mc-field-group">
+	        <input type="email" value="" name="EMAIL" size="40" placeholder="email address" class="required email rounded-pill" id="mce-EMAIL">
+            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button btn btn-primary text-center btn-l rounded-pill" role="button">            
+        </div>
+    	<div id="mce-responses" class="clear">
+	    	<div class="response" id="mce-error-response" style="display: none;"></div>
+		    <div class="response" id="mce-success-response" style="display: none;"></div>
+	    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute;left: -5000px;" aria-hidden="true"><input type="text" name="b_0c529d39d4cbdf8bb98f68b5a_9c4d374418" tabindex="-1" value=""></div>
+        </center>
+    </div>
+</form>
+</div>
+<!--End mc_embed_signup--></p><div>
+
+  <style>
+        svg {
+          width: 300px;
+          display: inline-block;
+          margin: 0;
+        }
+        svg .line1 {
+          stroke-dasharray: 340;
+          stroke-dashoffset: 40;
+          animation: dash 2s linear alternate infinite;
+        }
+        svg .line2 {
+          stroke-dasharray: 320;
+          stroke-dashoffset: 320;
+          animation: dash2 2s linear alternate infinite;
+        }
+        @keyframes dash {
+          from {
+            stroke-dashoffset: 360;
+          }
+          to {
+            stroke-dashoffset: 40;
+          }
+        }
+        @keyframes dash2 {
+          from {
+            stroke-dashoffset: 280;
+          }
+          to {
+            stroke-dashoffset: -40;
+          }
+        }
+  </style>
+
+  <svg viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <path fill="transparent" stroke="rgba(255,255,255,0.3)" stroke-width="1" class="path" d="M57.364,77.951292 C57.1661154,77.9547297 56.971408,77.9009094 56.803,77.7962224 L50.5,74.0523997 L44.197,77.8516044 C43.8566588,78.0494652 43.4373412,78.0494652 43.097,77.8516044 L30.128,69.8544446 C29.7981524,69.6522541 29.5977512,69.2907082 29.6,68.9018743 L29.6,60.9268673 L23.561,57.4378017 C23.2283849,57.2499889 23.0161014,56.9021084 23,56.5184606 L23,43.4261574 C23.0006839,43.0265607 23.2150644,42.6583128 23.561,42.4625107 L29.6,39.0177507 L29.6,31.0427437 C29.5992395,30.6600525 29.794716,30.3040758 30.117,30.1012498 L43.064,22.159472 C43.4043412,21.9616112 43.8236588,21.9616112 44.164,22.159472 L50.5,25.9476003 L56.803,22.1483956 C57.1433412,21.9505348 57.5626588,21.9505348 57.903,22.1483956 L70.872,30.1012498 C71.1984972,30.3013909 71.3984055,30.6578539 71.4,31.0427437 L71.4,39.0177507 L77.439,42.4625107 C77.7849356,42.6583128 77.9993161,43.0265607 78,43.4261574 L78,56.5184606 C77.9993161,56.9180573 77.7849356,57.2863052 77.439,57.4821073 L71.4,60.9379437 L71.4,68.9018743 C71.4022488,69.2907082 71.2018476,69.6522541 70.872,69.8544446 L57.936,77.7962224 C57.7615803,77.8961703 57.5646776,77.9495507 57.364,77.951292 Z M51.6,72.0808007 L57.375,75.5587899 L69.2,68.281596 L69.2,60.2844361 C69.2006839,59.8848395 69.4150644,59.5165915 69.761,59.3207895 L74.634,56.5406134 L70.542,54.2588753 C69.613064,55.0552684 68.3115635,55.2414167 67.1991346,54.7369916 C66.0867056,54.2325666 65.3624868,53.1278665 65.339,51.8996024 C65.3162868,50.693754 65.9732103,49.5788132 67.0351149,49.0209297 C68.0970194,48.4630462 69.3809982,48.5583123 70.3502277,49.2668977 C71.3194572,49.9754832 71.8069932,51.1753383 71.609,52.3648111 L75.8,54.6465492 L75.8,44.0796649 L69.75,40.6238285 C69.4248331,40.4353377 69.2175042,40.0929568 69.2,39.7155639 L69.2,36.6806306 L66.153,36.6806306 C65.6203272,38.129273 64.1333913,38.9854409 62.6233441,38.7129834 C61.1132968,38.4405258 60.0141038,37.1177431 60.0141038,35.5729908 C60.0141038,34.0282384 61.1132968,32.7054557 62.6233441,32.4329982 C64.1333913,32.1605406 65.6203272,33.0167086 66.153,34.4653509 L69.2,34.4653509 L69.2,31.663022 L57.364,24.3969045 L51.6,27.8638173 L51.6,40.0478558 L57.716,43.6144562 C58.8817033,42.7308973 60.4977462,42.7703459 61.6195618,43.7097444 C62.7413775,44.649143 63.0745402,46.2419421 62.4243185,47.5571608 C61.7740968,48.8723794 60.3111444,49.5648326 58.8905476,49.2297857 C57.4699509,48.8947388 56.4645519,47.6201264 56.462,46.1509515 C56.4610856,45.9277198 56.4832043,45.7049964 56.528,45.4863676 L49.928,41.6539336 C49.5863024,41.4552884 49.3764336,41.0875805 49.378,40.6902869 L49.378,27.8638173 L43.647,24.3969045 L38.4,27.6090601 L38.4,35.4289976 L36.2,35.4289976 L36.2,28.9603808 L31.8,31.663022 L31.8,39.0177507 L37.3,42.1523716 L42.8,39.0177507 L42.8,33.357711 L45,33.357711 L45,39.7155639 C44.9993161,40.1151605 44.7849356,40.4834085 44.439,40.6792105 L38.4,44.0685885 L38.4,49.3409543 L44.516,53.3284578 C44.8265801,53.5344055 45.0127953,53.8844213 45.011,54.2588753 L45.011,57.9805452 L49.411,55.3665151 L49.411,50.6701221 L43.592,47.2253621 L44.692,45.3091452 L51.05,49.0861971 C51.3798476,49.2883876 51.5802488,49.6499335 51.578,50.0387674 L51.578,64.4380856 L56.627,64.4380856 C57.1478987,62.9848122 58.6339679,62.121907 60.1440262,62.3958793 C61.6540845,62.6698516 62.7475959,64.0007741 62.732,65.5457255 C62.6470677,67.0280998 61.5641905,68.2586671 60.1129616,68.5219659 C58.6617328,68.7852647 57.2204142,68.0126662 56.627,66.6533654 L51.6,66.6533654 L51.6,72.0808007 Z M39.049,72.7232318 L43.647,75.5477135 L49.4,72.0808007 L49.4,57.9362396 L37.113,65.1912807 L36.013,63.2750638 L42.8,59.2764839 L42.8,54.8459244 L37.3,51.2350184 L31.14,54.7130076 L30.04,52.7746379 L36.2,49.2966487 L36.2,44.0685885 L30.7,40.9339677 L25.2,44.0685885 L25.2,48.1003976 L29.908,45.3202216 L31.008,47.2253621 L25.2,50.6701221 L25.2,55.8760295 L30.7,59.0106503 L36.266,55.6877307 L37.366,57.6039477 L31.8,60.9157909 L31.8,68.281596 L36.783,71.338682 L42.525,67.9382276 L42.591,68.0379152 L42.855,67.8828456 L43.955,69.7990626 L39.049,72.7232318 Z M59.608,64.5266968 C59.0870136,64.5327973 58.669001,64.9619409 58.6730283,65.4865656 C58.6770555,66.0111903 59.1016063,66.4337759 59.6226241,66.4317731 C60.143642,66.4297561 60.5649648,66.0039074 60.565,65.4792671 C60.5681686,65.2217855 60.4664655,64.9742334 60.2835741,64.7942572 C60.1006827,64.614281 59.8525652,64.5175888 59.597,64.5266968 L59.608,64.5266968 Z M68.507,50.8916501 C68.1189598,50.8871586 67.766641,51.1190744 67.6150435,51.4787855 C67.463446,51.8384967 67.5425853,52.2547818 67.8153986,52.5326842 C68.0882119,52.8105865 68.5006833,52.8950826 68.859642,52.7466007 C69.2186006,52.5981189 69.4529744,52.2460579 69.453,51.8552968 C69.453,51.3230894 69.0245365,50.8916501 68.496,50.8916501 L68.507,50.8916501 Z M59.608,45.1873048 C59.0794635,45.1873048 58.651,45.6187441 58.651,46.1509515 C58.651,46.6831588 59.0794635,47.1145982 59.608,47.1145982 C60.1365365,47.1145982 60.565,46.6831588 60.565,46.1509515 C60.5680544,45.892513 60.4666869,45.6439183 60.2841567,45.4622091 C60.1016266,45.2804998 59.8536043,45.1812759 59.597,45.1873048 L59.608,45.1873048 Z M63.205,34.6093441 C62.8179296,34.6093441 62.4689727,34.8441291 62.3208473,35.2042191 C62.1727219,35.5643092 62.2545987,35.9787908 62.5282988,36.2543919 C62.8019989,36.5299929 63.2136217,36.6124384 63.571228,36.4632842 C63.9288344,36.31413 64.162,35.9627495 64.162,35.5729908 C64.162,35.315485 64.0596818,35.0686841 63.8778233,34.8876435 C63.6959649,34.7066029 63.4497127,34.6063842 63.194,34.6093441 L63.205,34.6093441 Z" id="Shape" stroke="#232F3E" fill="#000000" fill-rule="nonzero"></path>
+    <path fill="transparent" stroke="#00B0E6" stroke-width="1" class="line2" d="M57.364,77.951292 C57.1661154,77.9547297 56.971408,77.9009094 56.803,77.7962224 L50.5,74.0523997 L44.197,77.8516044 C43.8566588,78.0494652 43.4373412,78.0494652 43.097,77.8516044 L30.128,69.8544446 C29.7981524,69.6522541 29.5977512,69.2907082 29.6,68.9018743 L29.6,60.9268673 L23.561,57.4378017 C23.2283849,57.2499889 23.0161014,56.9021084 23,56.5184606 L23,43.4261574 C23.0006839,43.0265607 23.2150644,42.6583128 23.561,42.4625107 L29.6,39.0177507 L29.6,31.0427437 C29.5992395,30.6600525 29.794716,30.3040758 30.117,30.1012498 L43.064,22.159472 C43.4043412,21.9616112 43.8236588,21.9616112 44.164,22.159472 L50.5,25.9476003 L56.803,22.1483956 C57.1433412,21.9505348 57.5626588,21.9505348 57.903,22.1483956 L70.872,30.1012498 C71.1984972,30.3013909 71.3984055,30.6578539 71.4,31.0427437 L71.4,39.0177507 L77.439,42.4625107 C77.7849356,42.6583128 77.9993161,43.0265607 78,43.4261574 L78,56.5184606 C77.9993161,56.9180573 77.7849356,57.2863052 77.439,57.4821073 L71.4,60.9379437 L71.4,68.9018743 C71.4022488,69.2907082 71.2018476,69.6522541 70.872,69.8544446 L57.936,77.7962224 C57.7615803,77.8961703 57.5646776,77.9495507 57.364,77.951292 Z M51.6,72.0808007 L57.375,75.5587899 L69.2,68.281596 L69.2,60.2844361 C69.2006839,59.8848395 69.4150644,59.5165915 69.761,59.3207895 L74.634,56.5406134 L70.542,54.2588753 C69.613064,55.0552684 68.3115635,55.2414167 67.1991346,54.7369916 C66.0867056,54.2325666 65.3624868,53.1278665 65.339,51.8996024 C65.3162868,50.693754 65.9732103,49.5788132 67.0351149,49.0209297 C68.0970194,48.4630462 69.3809982,48.5583123 70.3502277,49.2668977 C71.3194572,49.9754832 71.8069932,51.1753383 71.609,52.3648111 L75.8,54.6465492 L75.8,44.0796649 L69.75,40.6238285 C69.4248331,40.4353377 69.2175042,40.0929568 69.2,39.7155639 L69.2,36.6806306 L66.153,36.6806306 C65.6203272,38.129273 64.1333913,38.9854409 62.6233441,38.7129834 C61.1132968,38.4405258 60.0141038,37.1177431 60.0141038,35.5729908 C60.0141038,34.0282384 61.1132968,32.7054557 62.6233441,32.4329982 C64.1333913,32.1605406 65.6203272,33.0167086 66.153,34.4653509 L69.2,34.4653509 L69.2,31.663022 L57.364,24.3969045 L51.6,27.8638173 L51.6,40.0478558 L57.716,43.6144562 C58.8817033,42.7308973 60.4977462,42.7703459 61.6195618,43.7097444 C62.7413775,44.649143 63.0745402,46.2419421 62.4243185,47.5571608 C61.7740968,48.8723794 60.3111444,49.5648326 58.8905476,49.2297857 C57.4699509,48.8947388 56.4645519,47.6201264 56.462,46.1509515 C56.4610856,45.9277198 56.4832043,45.7049964 56.528,45.4863676 L49.928,41.6539336 C49.5863024,41.4552884 49.3764336,41.0875805 49.378,40.6902869 L49.378,27.8638173 L43.647,24.3969045 L38.4,27.6090601 L38.4,35.4289976 L36.2,35.4289976 L36.2,28.9603808 L31.8,31.663022 L31.8,39.0177507 L37.3,42.1523716 L42.8,39.0177507 L42.8,33.357711 L45,33.357711 L45,39.7155639 C44.9993161,40.1151605 44.7849356,40.4834085 44.439,40.6792105 L38.4,44.0685885 L38.4,49.3409543 L44.516,53.3284578 C44.8265801,53.5344055 45.0127953,53.8844213 45.011,54.2588753 L45.011,57.9805452 L49.411,55.3665151 L49.411,50.6701221 L43.592,47.2253621 L44.692,45.3091452 L51.05,49.0861971 C51.3798476,49.2883876 51.5802488,49.6499335 51.578,50.0387674 L51.578,64.4380856 L56.627,64.4380856 C57.1478987,62.9848122 58.6339679,62.121907 60.1440262,62.3958793 C61.6540845,62.6698516 62.7475959,64.0007741 62.732,65.5457255 C62.6470677,67.0280998 61.5641905,68.2586671 60.1129616,68.5219659 C58.6617328,68.7852647 57.2204142,68.0126662 56.627,66.6533654 L51.6,66.6533654 L51.6,72.0808007 Z M39.049,72.7232318 L43.647,75.5477135 L49.4,72.0808007 L49.4,57.9362396 L37.113,65.1912807 L36.013,63.2750638 L42.8,59.2764839 L42.8,54.8459244 L37.3,51.2350184 L31.14,54.7130076 L30.04,52.7746379 L36.2,49.2966487 L36.2,44.0685885 L30.7,40.9339677 L25.2,44.0685885 L25.2,48.1003976 L29.908,45.3202216 L31.008,47.2253621 L25.2,50.6701221 L25.2,55.8760295 L30.7,59.0106503 L36.266,55.6877307 L37.366,57.6039477 L31.8,60.9157909 L31.8,68.281596 L36.783,71.338682 L42.525,67.9382276 L42.591,68.0379152 L42.855,67.8828456 L43.955,69.7990626 L39.049,72.7232318 Z M59.608,64.5266968 C59.0870136,64.5327973 58.669001,64.9619409 58.6730283,65.4865656 C58.6770555,66.0111903 59.1016063,66.4337759 59.6226241,66.4317731 C60.143642,66.4297561 60.5649648,66.0039074 60.565,65.4792671 C60.5681686,65.2217855 60.4664655,64.9742334 60.2835741,64.7942572 C60.1006827,64.614281 59.8525652,64.5175888 59.597,64.5266968 L59.608,64.5266968 Z M68.507,50.8916501 C68.1189598,50.8871586 67.766641,51.1190744 67.6150435,51.4787855 C67.463446,51.8384967 67.5425853,52.2547818 67.8153986,52.5326842 C68.0882119,52.8105865 68.5006833,52.8950826 68.859642,52.7466007 C69.2186006,52.5981189 69.4529744,52.2460579 69.453,51.8552968 C69.453,51.3230894 69.0245365,50.8916501 68.496,50.8916501 L68.507,50.8916501 Z M59.608,45.1873048 C59.0794635,45.1873048 58.651,45.6187441 58.651,46.1509515 C58.651,46.6831588 59.0794635,47.1145982 59.608,47.1145982 C60.1365365,47.1145982 60.565,46.6831588 60.565,46.1509515 C60.5680544,45.892513 60.4666869,45.6439183 60.2841567,45.4622091 C60.1016266,45.2804998 59.8536043,45.1812759 59.597,45.1873048 L59.608,45.1873048 Z M63.205,34.6093441 C62.8179296,34.6093441 62.4689727,34.8441291 62.3208473,35.2042191 C62.1727219,35.5643092 62.2545987,35.9787908 62.5282988,36.2543919 C62.8019989,36.5299929 63.2136217,36.6124384 63.571228,36.4632842 C63.9288344,36.31413 64.162,35.9627495 64.162,35.5729908 C64.162,35.315485 64.0596818,35.0686841 63.8778233,34.8876435 C63.6959649,34.7066029 63.4497127,34.6063842 63.194,34.6093441 L63.205,34.6093441 Z" id="Shape" stroke="#232F3E" fill="#000000" fill-rule="nonzero"></path>
+    <path fill="transparent" stroke="rgba(255,255,255,0.3)" stroke-width="1" class="line1" d="M57.364,77.951292 C57.1661154,77.9547297 56.971408,77.9009094 56.803,77.7962224 L50.5,74.0523997 L44.197,77.8516044 C43.8566588,78.0494652 43.4373412,78.0494652 43.097,77.8516044 L30.128,69.8544446 C29.7981524,69.6522541 29.5977512,69.2907082 29.6,68.9018743 L29.6,60.9268673 L23.561,57.4378017 C23.2283849,57.2499889 23.0161014,56.9021084 23,56.5184606 L23,43.4261574 C23.0006839,43.0265607 23.2150644,42.6583128 23.561,42.4625107 L29.6,39.0177507 L29.6,31.0427437 C29.5992395,30.6600525 29.794716,30.3040758 30.117,30.1012498 L43.064,22.159472 C43.4043412,21.9616112 43.8236588,21.9616112 44.164,22.159472 L50.5,25.9476003 L56.803,22.1483956 C57.1433412,21.9505348 57.5626588,21.9505348 57.903,22.1483956 L70.872,30.1012498 C71.1984972,30.3013909 71.3984055,30.6578539 71.4,31.0427437 L71.4,39.0177507 L77.439,42.4625107 C77.7849356,42.6583128 77.9993161,43.0265607 78,43.4261574 L78,56.5184606 C77.9993161,56.9180573 77.7849356,57.2863052 77.439,57.4821073 L71.4,60.9379437 L71.4,68.9018743 C71.4022488,69.2907082 71.2018476,69.6522541 70.872,69.8544446 L57.936,77.7962224 C57.7615803,77.8961703 57.5646776,77.9495507 57.364,77.951292 Z M51.6,72.0808007 L57.375,75.5587899 L69.2,68.281596 L69.2,60.2844361 C69.2006839,59.8848395 69.4150644,59.5165915 69.761,59.3207895 L74.634,56.5406134 L70.542,54.2588753 C69.613064,55.0552684 68.3115635,55.2414167 67.1991346,54.7369916 C66.0867056,54.2325666 65.3624868,53.1278665 65.339,51.8996024 C65.3162868,50.693754 65.9732103,49.5788132 67.0351149,49.0209297 C68.0970194,48.4630462 69.3809982,48.5583123 70.3502277,49.2668977 C71.3194572,49.9754832 71.8069932,51.1753383 71.609,52.3648111 L75.8,54.6465492 L75.8,44.0796649 L69.75,40.6238285 C69.4248331,40.4353377 69.2175042,40.0929568 69.2,39.7155639 L69.2,36.6806306 L66.153,36.6806306 C65.6203272,38.129273 64.1333913,38.9854409 62.6233441,38.7129834 C61.1132968,38.4405258 60.0141038,37.1177431 60.0141038,35.5729908 C60.0141038,34.0282384 61.1132968,32.7054557 62.6233441,32.4329982 C64.1333913,32.1605406 65.6203272,33.0167086 66.153,34.4653509 L69.2,34.4653509 L69.2,31.663022 L57.364,24.3969045 L51.6,27.8638173 L51.6,40.0478558 L57.716,43.6144562 C58.8817033,42.7308973 60.4977462,42.7703459 61.6195618,43.7097444 C62.7413775,44.649143 63.0745402,46.2419421 62.4243185,47.5571608 C61.7740968,48.8723794 60.3111444,49.5648326 58.8905476,49.2297857 C57.4699509,48.8947388 56.4645519,47.6201264 56.462,46.1509515 C56.4610856,45.9277198 56.4832043,45.7049964 56.528,45.4863676 L49.928,41.6539336 C49.5863024,41.4552884 49.3764336,41.0875805 49.378,40.6902869 L49.378,27.8638173 L43.647,24.3969045 L38.4,27.6090601 L38.4,35.4289976 L36.2,35.4289976 L36.2,28.9603808 L31.8,31.663022 L31.8,39.0177507 L37.3,42.1523716 L42.8,39.0177507 L42.8,33.357711 L45,33.357711 L45,39.7155639 C44.9993161,40.1151605 44.7849356,40.4834085 44.439,40.6792105 L38.4,44.0685885 L38.4,49.3409543 L44.516,53.3284578 C44.8265801,53.5344055 45.0127953,53.8844213 45.011,54.2588753 L45.011,57.9805452 L49.411,55.3665151 L49.411,50.6701221 L43.592,47.2253621 L44.692,45.3091452 L51.05,49.0861971 C51.3798476,49.2883876 51.5802488,49.6499335 51.578,50.0387674 L51.578,64.4380856 L56.627,64.4380856 C57.1478987,62.9848122 58.6339679,62.121907 60.1440262,62.3958793 C61.6540845,62.6698516 62.7475959,64.0007741 62.732,65.5457255 C62.6470677,67.0280998 61.5641905,68.2586671 60.1129616,68.5219659 C58.6617328,68.7852647 57.2204142,68.0126662 56.627,66.6533654 L51.6,66.6533654 L51.6,72.0808007 Z M39.049,72.7232318 L43.647,75.5477135 L49.4,72.0808007 L49.4,57.9362396 L37.113,65.1912807 L36.013,63.2750638 L42.8,59.2764839 L42.8,54.8459244 L37.3,51.2350184 L31.14,54.7130076 L30.04,52.7746379 L36.2,49.2966487 L36.2,44.0685885 L30.7,40.9339677 L25.2,44.0685885 L25.2,48.1003976 L29.908,45.3202216 L31.008,47.2253621 L25.2,50.6701221 L25.2,55.8760295 L30.7,59.0106503 L36.266,55.6877307 L37.366,57.6039477 L31.8,60.9157909 L31.8,68.281596 L36.783,71.338682 L42.525,67.9382276 L42.591,68.0379152 L42.855,67.8828456 L43.955,69.7990626 L39.049,72.7232318 Z M59.608,64.5266968 C59.0870136,64.5327973 58.669001,64.9619409 58.6730283,65.4865656 C58.6770555,66.0111903 59.1016063,66.4337759 59.6226241,66.4317731 C60.143642,66.4297561 60.5649648,66.0039074 60.565,65.4792671 C60.5681686,65.2217855 60.4664655,64.9742334 60.2835741,64.7942572 C60.1006827,64.614281 59.8525652,64.5175888 59.597,64.5266968 L59.608,64.5266968 Z M68.507,50.8916501 C68.1189598,50.8871586 67.766641,51.1190744 67.6150435,51.4787855 C67.463446,51.8384967 67.5425853,52.2547818 67.8153986,52.5326842 C68.0882119,52.8105865 68.5006833,52.8950826 68.859642,52.7466007 C69.2186006,52.5981189 69.4529744,52.2460579 69.453,51.8552968 C69.453,51.3230894 69.0245365,50.8916501 68.496,50.8916501 L68.507,50.8916501 Z M59.608,45.1873048 C59.0794635,45.1873048 58.651,45.6187441 58.651,46.1509515 C58.651,46.6831588 59.0794635,47.1145982 59.608,47.1145982 C60.1365365,47.1145982 60.565,46.6831588 60.565,46.1509515 C60.5680544,45.892513 60.4666869,45.6439183 60.2841567,45.4622091 C60.1016266,45.2804998 59.8536043,45.1812759 59.597,45.1873048 L59.608,45.1873048 Z M63.205,34.6093441 C62.8179296,34.6093441 62.4689727,34.8441291 62.3208473,35.2042191 C62.1727219,35.5643092 62.2545987,35.9787908 62.5282988,36.2543919 C62.8019989,36.5299929 63.2136217,36.6124384 63.571228,36.4632842 C63.9288344,36.31413 64.162,35.9627495 64.162,35.5729908 C64.162,35.315485 64.0596818,35.0686841 63.8778233,34.8876435 C63.6959649,34.7066029 63.4497127,34.6063842 63.194,34.6093441 L63.205,34.6093441 Z" id="Shape" stroke="#232F3E" fill="#000000" fill-rule="nonzero"></path>
+  </svg>
+</div>
+            </div>
+        </div>
+        <div class="bg-circle-1 bg-circle"></div>
+        <div class="bg-circle-2 bg-circle"></div>
+        <div class="bg-circle-3 bg-circle"></div>
+    </header>
+    <section>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-2">
+                    <div class="p-5"><img class="rounded-circle img-fluid shadow-lg" src="assets/img/cfregly.png"></div>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <div class="p-5">
+                        <h2 class="display-4">Chris Fregly</h2>
+                        <p class="text-left"><a href="https://youtube.datascienceonaws.com" target="_blank"><strong>YouTube Videos</strong></a></p>
+                        <p class="text-left">Chris Fregly is a Principal Solution Architect for AI and Machine Learning at Amazon Web Services (AWS) based in San Francisco, California. He is co-author of the O'Reilly Book, "Data Science on AWS."<br><br>Chris is also the Founder of the global meetup series titled, "Data Science on AWS."&nbsp; &nbsp;He regularly speaks at AI and Machine Learning conferences across the world including O’Reilly AI, Open Data Science Conference (ODSC), Big Data London, Big Data Spain, and Nvidia GPU Technology Conference (GTC).<br><br>Previously, Chris was founder at PipelineAI where he worked with many AI-first startups and enterprises to continuously deploy ML/AI Pipelines using Apache Spark, Kubernetes, TensorFlow, Kubeflow, Ray, Amazon EKS, and Amazon SageMaker.<br></p>
+                        <p class="text-left"><a href="https://linkedin.com/in/cfregly" target="_blank"><strong>Connect on LinkedIn</strong></a></p><iframe src="https://platform.twitter.com/widgets/follow_button.html?screen_name=cfregly&amp;show_screen_name=true&amp;show_count=true" allowtransparency="true" frameborder="0" scrolling="no" title="Follow cfregly on Twitter" width="250" height="30"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-1">
+                    <div class="p-5">
+                        <h2 class="display-4">Antje Barth</h2>
+                        <p class="text-left"></p>
+                        <p class="text-left"><a href="https://youtube.datascienceonaws.com" target="_blank"><strong>YouTube Videos</strong></a></p>
+                        <p class="text-left">Antje Barth is a Principal Developer Advocate for AI and Machine Learning at Amazon Web Services (AWS) based in San Francisco, California. She is co-author of the O'Reilly Book, "Data Science on AWS."<br><br>Antje is also co-founder of the global "Data Science on AWS" Meetup. &nbsp;She frequently speaks at AI and Machine Learning conferences and meetups around the world, including the O’Reilly AI and Strata conferences.&nbsp; Besides ML/AI, Antje is passionate about helping developers leverage Big Data, container and Kubernetes platforms in the context of AI and Machine Learning. &nbsp;<br><br>Previously, Antje worked in technical evangelism and solutions engineering at MapR and Cisco where she worked with many companies to build and deploy cloud-based AI solutions using AWS and Kubernetes.<br></p>
+                        <p class="text-left"><a href="https://www.linkedin.com/in/antje-barth/" target="_blank"><strong>Connect on LinkedIn</strong></a></p><iframe src="https://platform.twitter.com/widgets/follow_button.html?screen_name=anbarth&amp;show_screen_name=true&amp;show_count=true" allowtransparency="true" frameborder="0" scrolling="no" title="Follow anbarth on Twitter" width="250" height="30"></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-2">
+                    <div class="p-5"><img class="rounded-circle img-fluid shadow" src="assets/img/abarth2.jpg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <section>
+                <div class="container" style="margin: 26px 26px;">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-left">Popular Talks</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-right" style="width: 200px;"></td>
+                                    <td><strong>Efficiently reduce toxicity of your large-language models using parameter-efficient fine-tuning (PEFT)&nbsp;and reinforcement learning from human feedback (RLHF)</strong><br>Toxicity and hate speech have no place in modern society.&nbsp;We can use reinforcement learning (RL) to reduce the toxicity of our LLMs, however RL is a compute-intensive and expensive process that typically requires many GPUs across a distributed cluster.&nbsp;In this talk, I will discuss and demonstrate how to combine parameter efficient fine tuning (PEFT) with reinforcement learning from human feedback (RLHF) for lightweight detoxification of an LLM on a single GPU.&nbsp;The talk will feature a live demo to demonstrate the detoxification process in a cost-effective manner.&nbsp;The code is all public and the github repo will be shared.<br><br><em>Generative AI and Machine Learning</em></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 200px;"></td>
+                                    <td><strong>Orchestrating a fine-tuning pipeline for generative large-language models using Amazon SageMaker</strong><br>In this talk, we build an end-to-end pipeline to fine-tune and deploy a generative large-language model (LLM) using Amazon SageMaker.&nbsp;The pipeline includes feature engineering, supervised-fine tuning (SFT), parameter-efficient fine-tuning (PEFT), model evaluation, and model deployment.&nbsp;We also discuss mechanisms to build a human-feedback workflow to further fine-tune and improve our model.&nbsp;We show how to incorporate the human feedback back into the fine-tuning pipeline with reinforcement learning (RLHF).&nbsp;<br><br><em>Generative AI and Machine Learning</em></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 200px;"></td>
+                                    <td><strong>Scaling AI and machine learning workloads with Ray on AWS, Kubernetes, and BERT</strong><br>Open source Ray is great for modern high-performance data processing and machine learning workloads.&nbsp; In this talk, I will explain distributed Ray - and how it differs from Dask and Apache Spark.&nbsp; I will also discuss various tips and tricks to optimizing Ray on AWS and Kubernetes.&nbsp; Next, I will highlight some AWS key contributions to the open source Ray project to improve performance, scalability, and operational efficiency.&nbsp; Lastly, I conclude the talk with a demo using Ray's AI Runtime (AIR) to train and serve a large, distributed BERT model with Amazon Elastic Kubernetes Services (EKS).&nbsp; This talk is based on this blog post:&nbsp;&nbsp;https://aws.amazon.com/blogs/opensource/scaling-ai-and-machine-learning-workloads-with-ray-on-aws/<br>&nbsp;<br><em>AI and Machine Learning, Open Source, Data Engineering, and Feature Engineering</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 200px;"></td>
+                                    <td><strong>Building an End-to-End Pipeline with BERT, TensorFlow, and Amazon SageMaker</strong><br><br>In this talk, I will build an end-to-end AI/ML pipeline for natural language processing with SageMaker.&nbsp; Attendees will learn how to do the following:<br><br>*&nbsp;Ingest data into S3 using Amazon Athena and the Parquet data format<br>* Visualize data with pandas, matplotlib on SageMaker notebooks and AWS Data Wrangler<br>* Analyze data with the Deequ library, Apache Spark, and SageMaker Processing Jobs<br>* Perform feature engineering on a raw dataset using Scikit-Learn and SageMaker Processing Jobs<br>*&nbsp;Train a custom BERT model using TensorFlow, Keras, and SageMaker Training Jobs<br>* Find the best hyper-parameters using SageMaker Hyper-Parameter Optimization Service (HPO)&nbsp;<br>* Deploy a model to a REST Inference Endpoint using SageMaker Endpoints<br>* Perform batch inference on a model using SageMaker Batch Transformations<br>* Automate the entire process using StepFunctions, EventBridge, and S3 Triggers<br><br>This talk is based on our workshop here:&nbsp; &nbsp;<a href="https://github.com/data-science-on-aws/workshop">https://github.com/data-science-on-aws/workshop</a>.&nbsp; <br><br>You can RSVP to the workshop here:&nbsp; &nbsp;<a href="https://www.eventbrite.com/e/full-day-workshop-kubeflow-bert-gpu-tensorflow-keras-sagemaker-tickets-63362929227">https://www.eventbrite.com/e/full-day-workshop-kubeflow-bert-gpu-tensorflow-keras-sagemaker-tickets-63362929227</a><br><br><em>AI and Machine Learning, Open Source, Natural Language Processing (NLP), Natural Language Understanding (NLU), and BERT</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>10 Things You Should Know About Quantum Machine Learning</strong><br><br>Based on nature's operating system of quantum mechanics, quantum computing offers massive parallelism and compute power well beyond today's super-computers.&nbsp;In this talk, I demystify the field of quantum mechanics, quantum computing, and quantum machine learning.&nbsp;&nbsp;I will discuss the fundamentals of quantum computing, introduce various quantum machine learning algorithms, and explain how hybrid quantum-classical algorithms work together to solve todays' problems.&nbsp;<br><br><em>AI and Machine Learning, Quantum Computing, Quantum Machine Learning, Amazon Braket, QPU</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Quantum Computing with Amazon Braket</strong><br><br>In this talk, I describe some&nbsp; fundamental principles of quantum computing including qu-bits, superposition, and entanglement.&nbsp; I will demonstrate how to perform secure quantum computing tasks across many Quantum Processing Units (QPUs) using Amazon Braket, IAM, and S3.<br><br><em>AI and Machine Learning, Quantum Computing, Amazon Braket, QPU</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Controlling and Optimizing Costs on Amazon SageMaker</strong><br><br>In this talk, we show how to control and optimize your Amazon SageMaker costs across multiple features including SageMaker Notebooks, Training Jobs, Hyper-Parameter Tuning, Batch Predictions, Deployment Endpoints, and GPUs.<br><br><em>AI and Machine Learning, Amazon SageMaker, Cost Optimization, GPU</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 200px;"></td>
+                                    <td><strong>Smokey and the Multi-Armed Bandit featuring BERT Reynolds and Reinforcement Learning</strong><br><br>Using the popular Hugging Face Transformers open source library for BERT, I will train and deploy multiple natural language understanding (NLU) models and compare them in live production using reinforcement learning to dynamically shift traffic to the winning model. <br><br>Next, I will describe the differences between A/B and multi-armed bandit tests including exploration-exploitation, reward-maximization, and regret-minimization.<br><br>Last, I will dive deep into the details of scaling a multi-armed bandit architecture on AWS using a real-time, stream-based text classifier with TensorFlow, PyTorch, and BERT on 150+ million reviews from the Amazon Customer Reviews Dataset.<br><br><em>I and Machine Learning, Open Source, Natural Language Processing (NLP), Natural Language Understanding (NLU), and BERT</em></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>From Your Laptop To The Cloud:&nbsp; Scaling Machine Learning the Easy Way</strong><br><br>Working withJupyter notebooks, I will show you how you can get offyour laptop in just a few clicks and run your first ML model in the cloud.<br><br><em>AI and Machine Learning,&nbsp;Jupyter Notebooks, Amazon SageMaker, Model Scaling, Model Development</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>1-Click Model Training, Tuning, and Deploying with Amazon SageMaker AutoPilot</strong><br><br>Typical approaches to automated machine learning (AutoML) don’t provide insights into the data or logic used to create models, forcing you to compromise on accuracy. Join us as I introduce Amazon SageMaker Autopilot, a fully managed AutoML service that generates machine learning models and provides complete control and visibility into the process. Learn how Autopilot automatically inspects raw data, picks the best set of algorithms, trains multiple models, tunes them, and ranks them based on performance. The result is a recommendation for the best performing model and visibility into the logic and code for how the model was created. Autopilot offers the best combination of automatic model creation with control and visibility for true 1-Click Machine Learning.<br><br><em>AI and Machine Learning, Automated Machine Learning, Model Training, Hyper-Parameter Tuning, Model Deploying,&nbsp;1-Click,&nbsp;Amazon Autopilot</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Beginners Guide to Natural Language Processing (NLP) and Natural Language Understanding (NLU)</strong><br><br>Natural Language Processing (NLP) is a field of artificial intelligence which focuses on the machines' ability to read, understand and derive meaning from human languages.&nbsp; It is with no doubt one of the fields that has been studied for very long times, with research publications dating back to the early 1900's.&nbsp; Fast-forward to 2020,&nbsp; the field of NLP is experiencing ground-breaking NLP research with new language models nearly every month.&nbsp; In this session, I will introduce you to Amazon Comprehend, a fully-managed NLP service, to find insights and relationships in text without any machine learning experience required.<br><br><em>AI and Machine Learning,&nbsp;Natural Language Processing (NLP), BERT, Amazon Comprehend</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Scaling Data Science with Open Source on Amazon Web Services</strong><br><br>Accessing data is the most important part of data science. In this workshop, I download, ingest, and analyze many aspects of a public dataset using S3, Athena, Redshift, and SageMaker Notebooks. I will highlight various AWS open source projects such as Deequ and Data Wrangler to improve the data science experience on AWS.<br><br><em>AI and Machine Learning, Big Data, Open Source, Data Science, Amazon S3, Athena, Redshift, SageMaker</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Putting Your Machine Learning on Autopilot</strong><br><br>A typical machine learning workflow consists of many steps including data analysis, feature engineering, model training and model tuning. What if our machine learning platform could perform these tasks for us and generate high-quality model candidates ready for review and deployment? In this session, I will discuss the concept of Automated Machine Learning (AutoML) and how the latest advances in AutoML allow you to put your machine learning models into autopilot mode while maintaining full visibility and control. I will demonstrate AutoML using Amazon SageMaker Autopilot, a fully managed AutoML service offered by AWS.<br><br><em>AI and Machine Learning, Automated Machine Learning, Amazon Autopilot</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Owning Your Own (Data) Lake House</strong><br><br>The amount of data generated by IoT, smart devices, cloud applications, and social media is growing exponentially. You need ways to easily and cost-effectively analyze all of this data with minimal time-to-insight, regardless of the format or where the data is stored. In this session, I introduce the Amazon Redshift lake house architecture which enables you to query data across your data warehouse, data lake, and operational databases to gain faster and deeper insights. With a lake house architecture, you can store data in open file formats in your Amazon S3 data lake. This allows you to make this data available easily to other analytics and machine learning tools rather than locking it in a new silo.<br><br><em>Big Data, Data Lake, Data Warehouse, Amazon S3, Athena, Redshift, and Redshift Spectrum</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Running Federated Queries Across Your Data Lake and Data Warehouse with Amazon S3, Athena, Redshift, and Spectrum</strong><br><br>In this talk, I demonstrate how to run federated queries across your unstructured data lake and structured data warehouse using Redshift Spectrum.<br><br><em>AI and Machine Learning, Big Data, Data Lake, Data Warehouse, Amazon S3, Athena, Redshift, and Redshift Spectrum</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Building End-to-End Machine Learning Workflows with Kubernetes, Kubeflow Pipelines, and BERT</strong><br><br>Kubeflow is a popular open-source machine learning (ML) toolkit for Kubernetes users who want to build custom ML pipelines. Kubeflow Pipelines is an add-on to Kubeflow that lets you build and deploy portable and scalable end-to-end ML workflows. In this session, I show you how to get started with Kubeflow Pipelines on AWS. I also demonstrate how you can integrate powerful Amazon SageMaker features such as data labeling, large-scale hyperparameter tuning, distributed training jobs, secure and scalable model deployment using Amazon SageMaker Components for Kubeflow Pipelines.&nbsp;<br><br><em>AI and Machine Learning, Open Source, Kubernetes, Kubeflow Pipelines, SageMaker Components for Kubeflow Pipelines, Amazon Elastic Kubernetes Service (EKS)</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right" style="width: 200px;"></td>
+                                    <td><strong>Creating an</strong>&nbsp;<strong>FAQ&nbsp;Chatbot with Slack, Amazon&nbsp;Lex, and Kendra</strong><br><br>In this talk, we demonstrate how to build a chatbot to handle common questions such as "Where can I get the slides?",&nbsp; "Is this recorded?", and "Where can I get the recording?"&nbsp; We will use Slack with Amazon Lex, Kendra, and Lambda Functions to build the FAQ chatbot.<br><br><em>AI and Machine Learning, Natural Language Processing (NLP), Natural Language Understanding (NLU), and BERT</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Amazon SageMaker Studio:&nbsp; &nbsp;The First IDE for Machine Learning to Build, Train, and Deploy Your Models Quickly</strong><br><br>Machine learning (ML) is a complex, iterative, often time-consuming process. One difficult aspect is the lack of integration between the workflow steps and the tools to accomplish them. Join us as I introduce Amazon SageMaker Studio, the first full integrated development environment (IDE) for ML that makes it easy to build, train, tune, debug, deploy, and monitor ML models at scale. It pulls together the ML workflow steps in a unified, visual interface—since they’re performed and tracked within one environment, the non-linear and iterative nature of ML development is greatly simplified. You can quickly move between steps, compare results and adjust inputs and parameters, and iterate faster with Amazon SageMaker Studio.<br><br><em>AI and Machine Learning, Integrated Development Environment (IDE),&nbsp;Model Development Lifecycle (MDLC)</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Use Natural Language Processing (NLP) and BERT to Power Intelligent Applications</strong><br><br>AWS brings natural language and text analysis technologies within the reach of every developer through pre-trained AI services. Learn how to modernize, adding intelligence to any application with machine learning services that provide language and chatbot functions. See how others are defining and building the next generation of apps that can interact with the world around us.<br><br><em>AI and Machine Learning, Natural Language Processing (NLP), BERT, Amazon SageMaker</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Build, Train, and Deploy an AI/ML Pipeline with BERT, Amazon SageMaker, and StepFunctions</strong><br><br>In this talk, I demonstrate how to deploy a continuous AI/ML pipeline using Amazon SageMaker and Step Functions.&nbsp; I will build, train, tune, and deploy a BERT model using the public Amazon Customer Reviews Dataset with 150+ million Amazon.com product reviews from 1995-2015.<br><br><em>AI and Machine Learning, Big Data, AI/ML&nbsp;Pipelines, Amazon SageMaker, Step Functions</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Find the Best Predictive Model for Your Dataset with Hyper-Parameter Tuning and Experiment Tracking on Amazon SageMaker</strong><br><br>In this talk, I describe how to tune and track your AI and machine learning models with Amazon SageMaker Hyper-Parameter Tuning and Experiment Tracking.<br><br><em>AI and Machine Learning, Hyper-Parameter Tuning, Experiment Tracking, Amazon SageMaker</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Waking the Data Scientist at 2am:&nbsp; Detect Model Degradation on Production Models Using Amazon SageMaker Endpoints and Model Monitor</strong><br><br>In this talk, I describe how to deploy a model into production and monitor its performance using SageMaker Model Monitor. With Model Monitor, I can detect if a model's predictive performance has degraded - and alert an on-call data scientist to take action and improve the model at 2am while the DevOps folks sleep soundly through the night.<br><br><em>AI&nbsp;and&nbsp;Machine Learning, Model Deployment, Anomaly Detection, Amazon SageMaker Endpoints, and Model Monitor</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Visualize BERT Attention for Natural Language Understanding (NLU) Use Cases using&nbsp; Amazon SageMaker Model and Debugger&nbsp;</strong><br><br>BERT is a revolutionary AI/ML model for Natural Language Understanding (NLP) and Natural Language Understanding (NLU). In this talk, I describe how to use Amazon SageMaker Model Debugger to visualize how BERT learns to understand the language of a given set of documents.<br><br><em>AI and Machine Learning, Model Training, Model Debugging, Natural Language Processing (NLP), Natural Language Understanding (NLU), and BERT</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Analyze and Detect Anomalies in Large Data sets Using AWS Open Source and Amazon SageMaker</strong><br><br>Data quality issues can lead to poor accuracy and bias in your predictive models.&nbsp; In my experience, this is the number one issue with machine learning pipelines based on unstructured data generated from modern applications.&nbsp; In this talk, we download, ingest, and analyze many aspects of&nbsp; the Amazon Customer Reviews Dataset including 150 million reviews from 1995-2015.&nbsp; We will use S3, Athena, Redshift, and SageMaker along with various open source projects from AWS including Data Wrangler and Deequ to improve the data science experience on AWS.&nbsp; Data Wrangler helps with data ingest, ETL, and feature engineering.&nbsp; Deequ analyzes large datasets for inconsistencies such as missing values, unexpected data types, and other statistical anomalies.<br><br><em>AI and Machine Learning, Big Data, Open Source, Apache Spark, Data Quality, Anomaly Detection</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Human-in-the-Loop Active Learning and Augmented AI</strong><br><br>Humans are not being replaced by AI. In fact, they work very well together. AI takes care of the tedious tasks while humans focus on the complex tasks that require human intelligence. This talk will demonstrate human-in-the-loop workflows using Amazon Augmented AI (A2I). AI will perform most of the predictions - and involve me only when the AI is not confident about its predictions. I then actively learn a new model to improve the AI's confidence on future predictions.<br><br><em>AI and Machine Learning, AI/ML&nbsp;Pipelines, Augmented AI, Human-in-the-Loop, Human Intelligence</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right"></td>
+                                    <td><strong>Understanding Natural Language with Amazon Comprehend and Kendra</strong><br><br>In this talk, we describe how to use Comprehend and Kendra to analyze documents and derive valuable insights from text-based data sources including S3, Salesforce, Sharepoint, MySQL, and many others.&nbsp; I will demonstrate how to build a custom text classifier using Amazon Comprehend and the public Amazon Customer Reviews Dataset with 150+ million reviews from 1995-2015.&nbsp;<br><br><em>AI and Machine Learning, Natural Language Processing (NLP), Natural Language Understanding (NLU), Enterprise Search, Amazon Comprehend, Kendra</em><br></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+    <div class="masthead-content" style="background-color: #f94f40;">
+        <div class="container text-center">
+            <h2 class="masthead-heading mb-0" style="color: #ffffff;font-family: Catamaran, sans-serif;padding: 20px;font-size: 40px;">Data Science on AWS</h2>
+            <h2 class="masthead-subheading mb-0" style="color: #ffffff;">O'Reilly Book Available Now!</h2>
+            <h2 class="masthead-subheading mb-0"><a class="btn btn-primary text-center shadow-lg btn-xl rounded-pill mt-5" role="button" href="https://www.amazon.com/dp/1492079391/" target="_blank" style="margin: 24px;padding: 24px, 48px;">BOOK</a><a class="btn btn-primary text-center shadow-lg btn-xl rounded-pill mt-5" role="button" href="https://www.eventbrite.com/e/full-day-workshop-kubeflow-bert-gpu-tensorflow-keras-sagemaker-tickets-63362929227" target="_blank" style="margin: 24px;padding: 24px, 48px;">WORKSHOPS</a><a class="btn btn-primary text-center shadow-lg btn-xl rounded-pill mt-5" role="button" href="https://meetup.datascienceonaws.com" target="_blank" style="margin: 24px;padding: 24px, 48px;">MEETUPS</a><a class="btn btn-primary text-center shadow-lg btn-xl rounded-pill mt-5" role="button" href="https://github.com/data-science-on-aws/" target="_blank" style="margin: 24px;padding: 24px, 48px;">CODE</a><a class="btn btn-primary text-center shadow-lg btn-xl rounded-pill mt-5" role="button" href="https://youtube.datascienceonaws.com" target="_parent" style="margin: 24px;padding: 24px, 48px;">VIDEOS</a></h2>
+        </div>
+    </div>
+    <footer class="py-5 bg-black">
+        <div class="container">
+            <p class="text-center text-white m-0 small" style="padding: 0px 0px 20px 0px;"><!-- Begin Mailchimp Signup Form -->
+<hr/>
+<div id="mc_embed_signup">
+<form action="https://github.us4.list-manage.com/subscribe/post?u=0c529d39d4cbdf8bb98f68b5a&amp;id=9c4d374418" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+        <center>
+        <div class="mc-field-group">
+	        <input type="email" value="" name="EMAIL" size="40" placeholder="email address" class="required email rounded-pill" id="mce-EMAIL">
+            <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button btn btn-primary text-center btn-l rounded-pill" role="button">            
+        </div>
+    	<div id="mce-responses" class="clear">
+	    	<div class="response" id="mce-error-response" style="display: none;"></div>
+		    <div class="response" id="mce-success-response" style="display: none;"></div>
+	    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+        <div style="position: absolute;left: -5000px;" aria-hidden="true"><input type="text" name="b_0c529d39d4cbdf8bb98f68b5a_9c4d374418" tabindex="-1" value=""></div>
+            </center>
+        </div>
+    </form>
+</div>
+
+
+
+
+<!--End mc_embed_signup--></p>
+        </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
